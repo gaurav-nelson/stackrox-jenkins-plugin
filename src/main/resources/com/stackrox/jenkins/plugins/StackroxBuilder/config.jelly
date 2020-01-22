@@ -8,14 +8,26 @@
         <f:password field="apiToken"/>
     </f:entry>
     <f:entry>
-        <f:optionalBlock title="${%EnableTLSVerification}" name="enableTLSVerification"
-                         checked="${instance.enableTLSVerification}" inline="true"
-                         help="/plugin/stackrox-k8s-security-platform/help/help-enableTLSVerification.html">
-            <f:entry title="${%CACertificate}" field="caCertPEM"
-                     help="/plugin/stackrox-k8s-security-platform/help/help-caCertPEM.html">
-                <f:expandableTextbox value="${instance.caCertPEM}"/>
-            </f:entry>
-        </f:optionalBlock>
+        <j:if test="${instance != null}">
+            <f:optionalBlock title="${%EnableTLSVerification}" name="enableTLSVerification"
+                             checked="${instance.enableTLSVerification}" inline="true"
+                             help="/plugin/stackrox-k8s-security-platform/help/help-enableTLSVerification.html">
+                <f:entry title="${%CACertificate}" field="caCertPEM"
+                         help="/plugin/stackrox-k8s-security-platform/help/help-caCertPEM.html">
+                    <f:expandableTextbox value="${instance.caCertPEM}"/>
+                </f:entry>
+            </f:optionalBlock>
+        </j:if>
+        <j:if test="${instance == null}">
+            <f:optionalBlock title="${%EnableTLSVerification}" name="enableTLSVerification"
+                             checked="${%true}" inline="true"
+                             help="/plugin/stackrox-k8s-security-platform/help/help-enableTLSVerification.html">
+                <f:entry title="${%CACertificate}" field="caCertPEM"
+                         help="/plugin/stackrox-k8s-security-platform/help/help-caCertPEM.html">
+                    <f:expandableTextbox value="${instance.caCertPEM}"/>
+                </f:entry>
+            </f:optionalBlock>
+        </j:if>
     </f:entry>
     <f:validateButton
             title="${%ValidateConnectionTitle}" progress="${%Connecting...}"
